@@ -64,6 +64,7 @@ def checkout(skus):
     total = 0
     group_counted = False
     for char in items:
+
         if char in group_items and not group_counted:
             num_group = len(group_items)
             list_gc = np.zeros(num_group)
@@ -73,13 +74,16 @@ def checkout(skus):
                 list_gp[i] = group_items_prices[group_items[i]]
 
             group_indeces = np.argsort(list_gp)[::-1] # get order from highest value to lowest
+
+            print(f"list_gc: {list_gc}, list gp: {list_gp}")
+            print(f"ind{group_indeces}")
             group_size = 3
             group_price = 45
             groups = 0
             current_group_count = 0
             current_group_price = 0
 
-            for i in indices:
+            for i in group_indeces:
                 whole_groups = (list_gc[i] + current_group_count) // group_size
                 if whole_groups > 0:
                     # new group created
@@ -91,7 +95,10 @@ def checkout(skus):
                 else:
                     current_group_count += (list_gc[i] + current_group_count) // group_size
                     current_group_price += list_gc[i] * list_gp[i]
+
+                print(group_indeces, whole_groups, groups, current_group_price, current_group_count)
             total += ((groups * group_price) + current_group_price)
+            group_counted = True
 
 
 
@@ -209,4 +216,5 @@ if __name__ == "__main__":
     for test in test_dic:
         res = checkout(test_dic[test]['t'])
         print(f"{test} {res == test_dic[test]['r']}, {res}")
+
 
