@@ -6,9 +6,11 @@ import numpy as np
 
 def discount(counts, special_n, d_price, price):
     # checks amount of special prices they can get
+    print(counts, special_n, d_price, price)
     special_price = (counts // special_n) * d_price
     # gets left overs from special prices
     remaining = (counts % special_n) * price
+    print(special_price, remaining)
     return special_price + remaining
 
 
@@ -104,6 +106,7 @@ test_dic = {
 if __name__ == "__main__":
     for test in test_dic:
         print(f"{test} {checkout(test_dic[test]['t']) == test_dic[test]['r']}")
+
 
 
 
