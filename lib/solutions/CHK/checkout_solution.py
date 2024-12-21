@@ -20,20 +20,25 @@ def checkout(skus):
         "K", "L", "M", "N", "O",
         "P", "Q", "R", "S", "T",
         "U", "V", "W", "X", "Y", "Z"]
+
+    group_items = ["S", "T", "X", "Y", "Z"]
+
     item_prices = {
         "A": 50, "B": 30, "C": 20, "D": 15, "E": 40,
         "F": 10, "G": 20, "H": 10, "I": 35, "J": 60,
-        "K": 80, "L": 90, "M": 15, "N": 40, "O": 10,
-        "P": 50, "Q": 30, "R": 50, "S": 30, "T": 20,
-        "U": 40, "V": 50, "W": 20, "X": 90, "Y": 10, "Z": 50,
-
+        "K": 70, "L": 90, "M": 15, "N": 40, "O": 10,
+        "P": 50, "Q": 30, "R": 50, "S": 20, "T": 20,
+        "U": 40, "V": 50, "W": 20, "X": 17, "Y": 20, "Z": 21,
     }
+
+    group_items_prices = {"S": 20, "T": 20, "X": 17, "Y": 20, "Z": 21}
+
     special_prices = {"A": [{"type": "d", "n": 3, "p": 130}, {"type": "d", "n": 5, "p": 200}],
                       "B": [{"type": "d", "n": 2, "p": 45}],
                       "E": [{"type": "f", "n": 2, "i": "B", "q": 1}],
                       "F": [{"type": "f", "n": 3, "i": "F", "q": 1}],
                       "H": [{"type": "d", "n": 5, "p": 45}, {"type": "d", "n": 10, "p": 80}],
-                      "K": [{"type": "d", "n": 2, "p": 150}],
+                      "K": [{"type": "d", "n": 2, "p": 120}],
                       "N": [{"type": "f", "n": 3, "i": "M", "q": 1}],
                       "P": [{"type": "d", "n": 5, "p": 200}],
                       "Q": [{"type": "d", "n": 3, "p": 80}],
@@ -57,9 +62,42 @@ def checkout(skus):
 
     # go through all the items
     total = 0
+    group_counted = False
     for char in items:
+        if char in group_items and not group_counted:
+            num_group = len(group_items)
+            list_gc = np.zeros(num_group)
+            list_gp = np.zeros(num_group)
+            for i in range(num_group): # through s t x y z
+                list_gc[i] = letter_counts[group_items[i]]
+                list_gp[i] = group_items_prices[group_items[i]]
+
+            group_indeces = np.argsort(list_gp)[::-1] # get order from highest value to lowest
+            group_size = 3
+            group_price = 45
+            groups = 0
+            current_group_count = 0
+            current_group_price = 0
+
+            for i in indices:
+                whole_groups = (list_gc[i] + current_group_count) // group_size
+                if whole_groups > 0:
+                    # new group created
+                    groups += whole_groups
+
+                    current_group_count = (list_gc[i] + current_group_count) // group_size
+                    current_group_price = list_gc[i] * list_gp[i]
+
+                else:
+                    current_group_count += (list_gc[i] + current_group_count) // group_size
+                    current_group_price += list_gc[i] * list_gp[i]
+            total += ((groups * group_price) + current_group_price)
+
+
+
+
         # check if special price
-        if char in special_prices.keys():
+        elif char in special_prices.keys():
             # checks number of offers
             if len(special_prices[char]) == 1:
 
@@ -160,9 +198,15 @@ test_dic = {
     "Test 17: ": {"t": "RRRQQQQ", "r": 230},
     "Test 18: ": {"t": "UUUU", "r": 120},
     "Test 19: ": {"t": "UUU", "r": 120},
+    "Test 20: ": {"t": "XYZ", "r": 45},
+    "Test 21: ": {"t": "XXXZ", "r": 62},
+    "Test 22: ": {"t": "X", "r": 120},
+    "Test 23: ": {"t": "X", "r": 120},
+    "Test 24: ": {"t": "X", "r": 120},
 
 }
 if __name__ == "__main__":
     for test in test_dic:
         res = checkout(test_dic[test]['t'])
         print(f"{test} {res == test_dic[test]['r']}, {res}")
+
