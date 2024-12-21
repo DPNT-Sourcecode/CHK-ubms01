@@ -49,6 +49,9 @@ def checkout(skus):
                     # checks amount of special prices they can get
                     number_free = (letter_counts[char] // special_prices[char][0]["n"])
                     free_product = special_prices[char][0]["i"]
+
+                    print(f"number free: {number_free}, free_p: {free_product}")
+
                     if free_product in special_prices.keys():
                         previous_price = discount(letter_counts[free_product], special_prices[free_product][0]["n"],
                                                   special_prices[free_product][0]["p"], item_prices[free_product])
@@ -61,6 +64,7 @@ def checkout(skus):
                         new_price = (letter_counts[free_product] - number_free) * item_prices[free_product]
 
                     price_char = letter_counts[char] * item_prices[char]
+                    print(f"prev:{previous_price}, new: {new_price}, e:{price_char}")
                     total += (new_price - previous_price + price_char)
 
                 else:
@@ -96,5 +100,6 @@ test_dic = {
 if __name__ == "__main__":
     for test in test_dic:
         print(f"{test} {checkout(test_dic[test]['t']) == test_dic[test]['r']}, {checkout(test_dic[test]['t'])}")
+
 
 
