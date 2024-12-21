@@ -49,6 +49,3 @@ if __name__ == "__main__":
         print(f"{test} {checkout(test_dic[test]['t']) == test_dic[test]['r']}")
 
 
-
-
-
