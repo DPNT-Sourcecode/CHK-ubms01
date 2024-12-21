@@ -84,6 +84,7 @@ def checkout(skus):
             current_group_price = 0
 
             for i in group_indeces:
+                print(f"char {list_gc[i]}, current gc {current_group_count}")
                 whole_groups = (list_gc[i] + current_group_count) // group_size
                 if whole_groups > 0:
                     # new group created
@@ -96,7 +97,9 @@ def checkout(skus):
                     current_group_count += (list_gc[i] + current_group_count) % group_size
                     current_group_price += list_gc[i] * list_gp[i]
 
-                print(i, whole_groups, groups, current_group_price, current_group_count)
+                print(list_gc[i])
+                print(f"i:{i}, whole{whole_groups}, groups{groups}, current group p{current_group_price}, current group c{current_group_count}")
+
             total += ((groups * group_price) + current_group_price)
             group_counted = True
             groups = 0
@@ -219,6 +222,7 @@ if __name__ == "__main__":
     for test in test_dic:
         res = checkout(test_dic[test]['t'])
         print(f"{test} {res == test_dic[test]['r']}, {res}")
+
 
 
 
