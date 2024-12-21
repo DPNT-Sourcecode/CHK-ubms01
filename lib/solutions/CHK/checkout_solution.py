@@ -37,16 +37,17 @@ def checkout(skus):
     return total
 
 
-test1 = "AABCDA"
-test2 = "AABCXA"
-test3 = "AAAAA"
-test4 = "AABCD"
+test_dic = {
+    "Test 1: ": {"t": "AABCDA", "r": 195},
+    "Test 2: ": {"t": "BBCX", "r": -1},
+    "Test 3: ": {"t": "BBCDA", "r": 130},
+    "Test 4: ": {"t": "DCBA", "r": 115},
 
+            }
 if __name__ == "__main__":
-    print(checkout(test1))
-    print(checkout(test2))
-    print(checkout(test3))
-    print(checkout(test4))
+    for test in test_dic:
+        print(f"{test} {checkout(test_dic[test]['t']) == test_dic[test]['r']}")
+
 
 
 
