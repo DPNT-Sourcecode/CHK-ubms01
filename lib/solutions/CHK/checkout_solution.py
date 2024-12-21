@@ -133,9 +133,12 @@ test_dic = {
     "Test 11: ": {"t": "FFF", "r": 20},
     "Test 12: ": {"t": "FFFF", "r": 30},
     "Test 13: ": {"t": "FFFF", "r": 30},
+    "Test 14: ": {"t": "AAAAABBBEEDDFFFF", "r": 385},
+    "Test 15: ": {"t": "DCBAFFFF", "r": 145},
 
 }
 if __name__ == "__main__":
     for test in test_dic:
         res = checkout(test_dic[test]['t'])
         print(f"{test} {res == test_dic[test]['r']}, {res}")
+
