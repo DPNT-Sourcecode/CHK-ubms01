@@ -141,4 +141,3 @@ if __name__ == "__main__":
     for test in test_dic:
         res = checkout(test_dic[test]['t'])
         print(f"{test} {res == test_dic[test]['r']}, {res}")
-
