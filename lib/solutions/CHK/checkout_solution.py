@@ -123,4 +123,6 @@ test_dic = {
 }
 if __name__ == "__main__":
     for test in test_dic:
-        print(f"{test} {checkout(test_dic[test]['t']) == test_dic[test]['r']}")
+        res = checkout(test_dic[test]['t'])
+        print(f"{test} {res == test_dic[test]['r']}, {res}")
+
