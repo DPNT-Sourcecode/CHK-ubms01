@@ -54,7 +54,7 @@ def checkout(skus):
                     if letter_counts[free_product] < number_free:
                         number_free = letter_counts[free_product]
 
-                    if free_product in special_prices.keys():
+                    if free_product in special_prices.keys() and special_prices[free_product][0]["type"] == "d":
                         previous_price = discount(letter_counts[free_product], special_prices[free_product][0]["n"],
                                                   special_prices[free_product][0]["p"], item_prices[free_product])
                         new_price = discount((letter_counts[free_product] - number_free),
@@ -128,19 +128,14 @@ test_dic = {
     "Test 6: ": {"t": "AAAAA", "r": 200},
     "Test 7: ": {"t": "AAAAAAAAA", "r": 380},
     "Test 8: ": {"t": "AAAAABBBEEDD", "r": 355},
-    "Test 8: ": {"t": "AAAAABBBEEDD", "r": 355},
-    "Test 8: ": {"t": "AAAAABBBEEDD", "r": 355},
+    "Test 9: ": {"t": "F", "r": 10},
+    "Test 10: ": {"t": "FF", "r": 20},
+    "Test 11: ": {"t": "FFF", "r": 20},
+    "Test 12: ": {"t": "FFFF", "r": 30},
+    "Test 13: ": {"t": "FFFF", "r": 30},
 
 }
 if __name__ == "__main__":
     for test in test_dic:
         res = checkout(test_dic[test]['t'])
         print(f"{test} {res == test_dic[test]['r']}, {res}")
-
-
-
-
-
-
-
-
