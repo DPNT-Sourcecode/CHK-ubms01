@@ -77,8 +77,13 @@ def checkout(skus):
                     list_p[offer] = special_prices[char][offer]["p"]
                     list_ind[offer] = offer
 
+                print("list n: ", list_n)
+                print("list p: ", list_p)
+                print("list ind: ", list_ind)
+
                 indices = np.argsort(list_n)[::-1]
-                print(indices)
+                print("ind: ", indices)
+                
                 tot = 0
                 for i in indices:
                     print("lists: ",list_n[i], list_p[i])
@@ -116,10 +121,10 @@ def checkout(skus):
 
 
 test_dic = {
-    "Test 1: ": {"t": "AABCDA", "r": 195},
-    "Test 2: ": {"t": "BBCX", "r": -1},
-    "Test 3: ": {"t": "BBCDA", "r": 130},
-    "Test 4: ": {"t": "DCBA", "r": 115},
+#    "Test 1: ": {"t": "AABCDA", "r": 195},
+#    "Test 2: ": {"t": "BBCX", "r": -1},
+#    "Test 3: ": {"t": "BBCDA", "r": 130},
+#    "Test 4: ": {"t": "DCBA", "r": 115},
     "Test 5: ": {"t": "AAAAAA", "r": 250},
     "Test 6: ": {"t": "AAAAA", "r": 200},
     "Test 7: ": {"t": "AAAAAAAAA", "r": 380},
@@ -130,6 +135,7 @@ if __name__ == "__main__":
     for test in test_dic:
         res = checkout(test_dic[test]['t'])
         print(f"{test} {res == test_dic[test]['r']}, {res}")
+
 
 
 
