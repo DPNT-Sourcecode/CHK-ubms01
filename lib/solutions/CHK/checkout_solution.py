@@ -114,9 +114,6 @@ def checkout(skus):
             current_group_count = 0
             current_group_price = 0
 
-
-
-
         # check if special price
         elif char in special_prices.keys():
             # checks number of offers
@@ -194,7 +191,11 @@ def checkout(skus):
                 #total += best_offer
 
         else:
+            print(char, total)
             total += (item_prices[char] * letter_counts[char])
+        #else:
+        #    print(char, total)
+        #    total += (item_prices[char] * letter_counts[char])
 
     return total
 
@@ -230,4 +231,5 @@ if __name__ == "__main__":
     for test in test_dic:
         res = checkout(test_dic[test]['t'])
         print(f"{test} {res == test_dic[test]['r']}, {res}")
+
 
