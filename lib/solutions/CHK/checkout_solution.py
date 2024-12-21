@@ -65,54 +65,36 @@ def checkout(skus):
     group_counted = False
     for char in items:
 
-        if char in group_items and not group_counted:
-            num_group = len(group_items)
-            list_gc = np.zeros(num_group)
-            list_gp = np.zeros(num_group)
-            for i in range(num_group): # through s t x y z
-                list_gc[i] = letter_counts[group_items[i]]
-                list_gp[i] = group_items_prices[group_items[i]]
+        if char in group_items:
+            if not group_counted:
+                num_group = len(group_items)
+                list_gc = np.zeros(num_group)
+                list_gp = np.zeros(num_group)
+                for i in range(num_group): # through s t x y z
+                    list_gc[i] = letter_counts[group_items[i]]
+                    list_gp[i] = group_items_prices[group_items[i]]
 
-            group_indeces = np.argsort(list_gp)[::-1] # get order from highest value to lowest
+                group_indeces = np.argsort(list_gp)[::-1] # get order from highest value to lowest
+                group_size = 3
+                group_price = 45
+                groups = 0
+                current_group_count = 0
+                current_group_price = 0
 
-            print(f"list_gc: {list_gc}, list gp: {list_gp}")
-            print(f"ind{group_indeces}")
-            group_size = 3
-            group_price = 45
-            groups = 0
-            current_group_count = 0
-            current_group_price = 0
+                for i in group_indeces:
+                    whole_groups = (list_gc[i] + current_group_count) // group_size
+                    if whole_groups > 0:
+                        # new group created
+                        groups += whole_groups
+                        current_group_count = (list_gc[i] + current_group_count) % group_size
+                        current_group_price = current_group_count * list_gp[i]
+                    else:
 
-            for i in group_indeces:
-                print(f"char {list_gc[i]}, current gc {current_group_count}")
-                whole_groups = (list_gc[i] + current_group_count) // group_size
-                if whole_groups > 0:
-                    print("new group")
-                    # new group created
-                    groups += whole_groups
-                    a = (list_gc[i] + current_group_count) % group_size
-                    b = (list_gc[i] + current_group_count) % group_size * list_gp[i]
-                    print(f"a {a}, b {b}/")
-                    current_group_count = (list_gc[i] + current_group_count) % group_size
-                    current_group_price = current_group_count * list_gp[i]
-                    print(f"i: {i}, whole {whole_groups}, groups {groups}, current group p {current_group_price}, current group c {current_group_count}")
+                        current_group_count = (list_gc[i] + current_group_count)
+                        current_group_price += list_gc[i] * list_gp[i]
 
-                else:
-#                    print("same group")
-#                    a = (list_gc[i] + current_group_count) % group_size
-#                    b = list_gc[i] * list_gp[i]
-#                    print(f"a {a}, b {b}/")
-                    current_group_count = (list_gc[i] + current_group_count)
-                    current_group_price += list_gc[i] * list_gp[i]
-
-#                print(f"i: {i}, whole {whole_groups}, groups {groups}, current group p {current_group_price}, current group c {current_group_count}")
-
-            print(groups, group_price, current_group_price)
-            total += ((groups * group_price) + current_group_price)
-            group_counted = True
-            groups = 0
-            current_group_count = 0
-            current_group_price = 0
+                total += ((groups * group_price) + current_group_price)
+                group_counted = True
 
         # check if special price
         elif char in special_prices.keys():
@@ -191,11 +173,7 @@ def checkout(skus):
                 #total += best_offer
 
         else:
-            print(char, total)
             total += (item_prices[char] * letter_counts[char])
-        #else:
-        #    print(char, total)
-        #    total += (item_prices[char] * letter_counts[char])
 
     return total
 
@@ -221,15 +199,16 @@ test_dic = {
 #    "Test 18: ": {"t": "UUUU", "r": 120},
 #    "Test 19: ": {"t": "UUU", "r": 120},
     "Test 20: ": {"t": "XYZ", "r": 45},
-#    "Test 21: ": {"t": "XXXZ", "r": 62},
-#    "Test 22: ": {"t": "X", "r": 17},
-#    "Test 23: ": {"t": "X", "r": 17},
-#    "Test 24: ": {"t": "X", "r": 17},
+    "Test 21: ": {"t": "XXXZ", "r": 62},
+    "Test 22: ": {"t": "X", "r": 17},
+    "Test 23: ": {"t": "X", "r": 17},
+    "Test 24: ": {"t": "X", "r": 17},
 
 }
 if __name__ == "__main__":
     for test in test_dic:
         res = checkout(test_dic[test]['t'])
         print(f"{test} {res == test_dic[test]['r']}, {res}")
+
 
 
