@@ -13,12 +13,32 @@ def discount(counts, special_n, d_price, price):
 
 
 def checkout(skus):
-    items = ["A", "B", "C", "D", "E", "F"]
-    item_prices = {"A": 50, "B": 30, "C": 20, "D": 15, "E": 40, "F": 10}
+    items = [
+        "A", "B", "C", "D", "E",
+        "F", "G", "H", "I", "J",
+        "K", "L", "M", "N", "O",
+        "P", "Q", "R", "S", "T",
+        "U", "V", "W", "X", "Y", "Z"]
+    item_prices = {
+        "A": 50, "B": 30, "C": 20, "D": 15, "E": 40,
+        "F": 10, "G": 20, "H": 10, "I": 35, "J": 60,
+        "K": 80, "L": 90, "M": 15, "N": 40, "O": 10,
+        "P": 50, "Q": 30, "R": 50, "S": 30, "T": 20,
+        "U": 40, "V": 50, "W": 20, "X": 90, "Y": 10, "Z": 50,
+
+    }
     special_prices = {"A": [{"type": "d", "n": 3, "p": 130}, {"type": "d", "n": 5, "p": 200}],
                       "B": [{"type": "d", "n": 2, "p": 45}],
                       "E": [{"type": "f", "n": 2, "i": "B", "q": 1}],
                       "F": [{"type": "f", "n": 3, "i": "F", "q": 1}],
+                      "H": [{"type": "d", "n": 5, "p": 45}, {"type": "d", "n": 10, "p": 80}],
+                      "K": [{"type": "d", "n": 2, "p": 150}],
+                      "N": [{"type": "f", "n": 3, "i": "M", "q": 1}],
+                      "P": [{"type": "d", "n": 5, "p": 200}],
+                      "Q": [{"type": "d", "n": 3, "p": 80}],
+                      "R": [{"type": "f", "n": 3, "i": "Q", "q": 1}],
+                      "U": [{"type": "f", "n": 3, "i": "U", "q": 1}],
+                      "V": [{"type": "d", "n": 2, "p": 90}, {"type": "d", "n": 3, "p": 130}],
                       }
 
     letter_counts = {letter: 0 for letter in items}
@@ -135,9 +155,12 @@ test_dic = {
     "Test 13: ": {"t": "FFFF", "r": 30},
     "Test 14: ": {"t": "AAAAABBBEEDDFFFF", "r": 385},
     "Test 15: ": {"t": "DCBAFFFF", "r": 145},
+    "Test 16: ": {"t": "RRRQQQQQQQ", "r": 310},
+    "Test 17: ": {"t": "RRRQQQQ", "r": 230},
 
 }
 if __name__ == "__main__":
     for test in test_dic:
         res = checkout(test_dic[test]['t'])
         print(f"{test} {res == test_dic[test]['r']}, {res}")
+
