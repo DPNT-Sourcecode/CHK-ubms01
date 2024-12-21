@@ -50,6 +50,9 @@ def checkout(skus):
                     number_free = (letter_counts[char] // special_prices[char][0]["n"])
                     free_product = special_prices[char][0]["i"]
 
+                    if letter_counts[free_product] < number_free:
+                        number_free = letter_counts[free_product]
+
                     if free_product in special_prices.keys():
                         previous_price = discount(letter_counts[free_product], special_prices[free_product][0]["n"],
                                                   special_prices[free_product][0]["p"], item_prices[free_product])
@@ -130,6 +133,7 @@ if __name__ == "__main__":
     for test in test_dic:
         res = checkout(test_dic[test]['t'])
         print(f"{test} {res == test_dic[test]['r']}, {res}")
+
 
 
 
