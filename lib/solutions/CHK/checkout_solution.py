@@ -90,9 +90,11 @@ test_dic = {
     "Test 5: ": {"t": "AAAAAA", "r": 250},
     "Test 6: ": {"t": "AAAAA", "r": 200},
     "Test 7: ": {"t": "AAAAAAAAA", "r": 390},
+    "Test 8: ": {"t": "AAAAABBBEEDD", "r": 340},
 
 }
 if __name__ == "__main__":
     for test in test_dic:
-        print(f"{test} {checkout(test_dic[test]['t']) == test_dic[test]['r']}")
+        print(f"{test} {checkout(test_dic[test]['t']) == test_dic[test]['r']}, {checkout(test_dic[test]['t'])}")
+
 
