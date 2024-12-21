@@ -44,6 +44,7 @@ def checkout(skus):
                 if special_prices[char][0]["type"] == "d":
                     total += discount(letter_counts[char], special_prices[char][0]["n"],
                                       special_prices[char][0]["p"], item_prices[char])
+                    print(char, total)
 
                 elif special_prices[char][0]["type"] == "f":
                     # checks amount of special prices they can get
@@ -66,6 +67,7 @@ def checkout(skus):
                     price_char = letter_counts[char] * item_prices[char]
                     print(f"prev:{previous_price}, new: {new_price}, e:{price_char}")
                     total += (new_price - previous_price + price_char)
+                    print(char, total)
 
                 else:
                     print(f"error: {special_prices[char]}")
@@ -79,9 +81,11 @@ def checkout(skus):
                                              special_prices[char][offer]["p"], item_prices[char])
                 best_offer = np.min(offers)
                 total += best_offer
+                print(char, total)
 
         else:
             total += (item_prices[char] * letter_counts[char])
+            print(char, total)
 
     return total
 
@@ -99,7 +103,8 @@ test_dic = {
 }
 if __name__ == "__main__":
     for test in test_dic:
-        print(f"{test} {checkout(test_dic[test]['t']) == test_dic[test]['r']}, {checkout(test_dic[test]['t'])}")
+        print(f"{test} {checkout(test_dic[test]['t']) == test_dic[test]['r']}")
+
 
 
 
