@@ -16,7 +16,6 @@ from solutions.CHL import checklite_solution
 from runner.utils import Utils
 from runner.user_input_action import get_user_input
 
-
 """
   ~~~~~~~~~~ Running the system: ~~~~~~~~~~~~~
  
@@ -76,3 +75,4 @@ ChallengeSession\
     .with_config(Utils.get_config())\
     .with_action_provider(lambda: get_user_input(sys.argv[1:]))\
     .start()
+
