@@ -89,16 +89,19 @@ def checkout(skus):
                     # new group created
                     groups += whole_groups
 
-                    current_group_count = (list_gc[i] + current_group_count) // group_size
+                    current_group_count = (list_gc[i] + current_group_count) % group_size
                     current_group_price = list_gc[i] * list_gp[i]
 
                 else:
-                    current_group_count += (list_gc[i] + current_group_count) // group_size
+                    current_group_count += (list_gc[i] + current_group_count) % group_size
                     current_group_price += list_gc[i] * list_gp[i]
 
-                print(group_indeces, whole_groups, groups, current_group_price, current_group_count)
+                print(i, whole_groups, groups, current_group_price, current_group_count)
             total += ((groups * group_price) + current_group_price)
             group_counted = True
+            groups = 0
+            current_group_count = 0
+            current_group_price = 0
 
 
 
@@ -207,14 +210,15 @@ test_dic = {
     "Test 19: ": {"t": "UUU", "r": 120},
     "Test 20: ": {"t": "XYZ", "r": 45},
     "Test 21: ": {"t": "XXXZ", "r": 62},
-    "Test 22: ": {"t": "X", "r": 120},
-    "Test 23: ": {"t": "X", "r": 120},
-    "Test 24: ": {"t": "X", "r": 120},
+    "Test 22: ": {"t": "X", "r": 17},
+    "Test 23: ": {"t": "X", "r": 17},
+    "Test 24: ": {"t": "X", "r": 17},
 
 }
 if __name__ == "__main__":
     for test in test_dic:
         res = checkout(test_dic[test]['t'])
         print(f"{test} {res == test_dic[test]['r']}, {res}")
+
 
 
