@@ -78,14 +78,18 @@ def checkout(skus):
                     list_ind[offer] = offer
 
                 indices = np.argsort(list_n)[::-1]
+                print(indices)
                 tot = 0
                 for i in indices:
-                    groups_n = letter_counts[char] // list_n[indices]
-                    rem = letter_counts[char] % list_n[indices]
+                    groups_n = letter_counts[char] // list_n[i]
+                    rem = letter_counts[char] % list_n[i]
 
-                    tot += groups_n * list_p[indices]
+                    tot += groups_n * list_p[i]
+
+                    print(groups_n, rem, tot)
 
                 tot += rem * item_prices[char]
+                print(tot)
                 total += tot
 
                 #sorted_n = [list_n[i] for i in indices]
@@ -125,4 +129,5 @@ if __name__ == "__main__":
     for test in test_dic:
         res = checkout(test_dic[test]['t'])
         print(f"{test} {res == test_dic[test]['r']}, {res}")
+
 
