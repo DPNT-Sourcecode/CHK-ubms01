@@ -13,11 +13,12 @@ def discount(counts, special_n, d_price, price):
 
 
 def checkout(skus):
-    items = ["A", "B", "C", "D", "E"]
-    item_prices = {"A": 50, "B": 30, "C": 20, "D": 15, "E": 40}
+    items = ["A", "B", "C", "D", "E", "F"]
+    item_prices = {"A": 50, "B": 30, "C": 20, "D": 15, "E": 40, "F": 10}
     special_prices = {"A": [{"type": "d", "n": 3, "p": 130}, {"type": "d", "n": 5, "p": 200}],
                       "B": [{"type": "d", "n": 2, "p": 45}],
                       "E": [{"type": "f", "n": 2, "i": "B", "q": 1}],
+                      "F": [{"type": "f", "n": 3, "i": "F", "q": 1}],
                       }
 
     letter_counts = {letter: 0 for letter in items}
@@ -127,12 +128,15 @@ test_dic = {
     "Test 6: ": {"t": "AAAAA", "r": 200},
     "Test 7: ": {"t": "AAAAAAAAA", "r": 380},
     "Test 8: ": {"t": "AAAAABBBEEDD", "r": 355},
+    "Test 8: ": {"t": "AAAAABBBEEDD", "r": 355},
+    "Test 8: ": {"t": "AAAAABBBEEDD", "r": 355},
 
 }
 if __name__ == "__main__":
     for test in test_dic:
         res = checkout(test_dic[test]['t'])
         print(f"{test} {res == test_dic[test]['r']}, {res}")
+
 
 
 
