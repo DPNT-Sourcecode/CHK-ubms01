@@ -1,5 +1,6 @@
 import numpy as np
-
+# very sorry thought I had restarted it in the chk_r4 challenge, I think I started making changes about 15:20
+# but it would make sense to just continue the timer from when I paused it.
 
 # noinspection PyUnusedLocal
 # skus = unicode string
@@ -163,4 +164,5 @@ if __name__ == "__main__":
     for test in test_dic:
         res = checkout(test_dic[test]['t'])
         print(f"{test} {res == test_dic[test]['r']}, {res}")
+
 
