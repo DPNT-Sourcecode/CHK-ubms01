@@ -1,5 +1,6 @@
 import numpy as np
 
+
 # noinspection PyUnusedLocal
 # skus = unicode string
 
@@ -13,7 +14,7 @@ def discount(counts, special_n, d_price, price):
 
 def checkout(skus):
     items = ["A", "B", "C", "D", "E"]
-    item_prices = {"A": 50 , "B":30, "C": 20, "D": 15, "E": 40}
+    item_prices = {"A": 50, "B": 30, "C": 20, "D": 15, "E": 40}
     special_prices = {"A": [{"type": "d", "n": 3, "p": 130}, {"type": "d", "n": 5, "p": 200}],
                       "B": [{"type": "d", "n": 2, "p": 45}],
                       "E": [{"type": "f", "n": 2, "i": "B", "q": 1}],
@@ -41,9 +42,27 @@ def checkout(skus):
             if len(special_prices[char]) == 1:
 
                 if special_prices[char][0]["type"] == "d":
-                    total += discount(letter_counts[char], special_prices[char][0]["n"], special_prices[char][0]["p"], item_prices[char])
+                    total += discount(letter_counts[char], special_prices[char][0]["n"],
+                                      special_prices[char][0]["p"], item_prices[char])
+
                 elif special_prices[char][0]["type"] == "f":
-                    print("something")
+                    # checks amount of special prices they can get
+                    number_free = (letter_counts[char] // special_prices[char][0]["n"])
+                    free_product = special_prices[char][0]["i"]
+                    if free_product in special_prices.keys():
+                        previous_price = discount(letter_counts[free_product], special_prices[free_product][0]["n"],
+                                                  special_prices[free_product][0]["p"], item_prices[free_product])
+                        new_price = discount((letter_counts[free_product] - number_free),
+                                             special_prices[free_product][0]["n"],
+                                             special_prices[free_product][0]["p"], item_prices[free_product])
+
+                    else:
+                        previous_price = letter_counts[free_product] * item_prices[free_product]
+                        new_price = (letter_counts[free_product] - number_free) * item_prices[free_product]
+
+                    price_char = letter_counts[char] * item_prices[char]
+                    total += (new_price - previous_price + price_char)
+
                 else:
                     print(f"error: {special_prices[char]}")
             else:
@@ -52,7 +71,8 @@ def checkout(skus):
 
                 for offer in range(n_offers):
                     # assuming only discount offers for this
-                    offers[offer] = discount(letter_counts[char], special_prices[char][offer]["n"], special_prices[char][offer]["p"], item_prices[char])
+                    offers[offer] = discount(letter_counts[char], special_prices[char][offer]["n"],
+                                             special_prices[char][offer]["p"], item_prices[char])
                 best_offer = np.min(offers)
                 total += best_offer
 
@@ -71,10 +91,8 @@ test_dic = {
     "Test 6: ": {"t": "AAAAA", "r": 200},
     "Test 7: ": {"t": "AAAAAAAAA", "r": 390},
 
-
-            }
+}
 if __name__ == "__main__":
     for test in test_dic:
         print(f"{test} {checkout(test_dic[test]['t']) == test_dic[test]['r']}")
-
 
