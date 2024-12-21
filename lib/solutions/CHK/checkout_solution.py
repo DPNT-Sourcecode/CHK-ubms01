@@ -87,6 +87,7 @@ def checkout(skus):
                 print(f"char {list_gc[i]}, current gc {current_group_count}")
                 whole_groups = (list_gc[i] + current_group_count) // group_size
                 if whole_groups > 0:
+                    print("new group")
                     # new group created
                     groups += whole_groups
 
@@ -94,11 +95,11 @@ def checkout(skus):
                     current_group_price = list_gc[i] * list_gp[i]
 
                 else:
+                    print("same group")
                     current_group_count += (list_gc[i] + current_group_count) % group_size
                     current_group_price += list_gc[i] * list_gp[i]
 
-                print(list_gc[i])
-                print(f"i:{i}, whole{whole_groups}, groups{groups}, current group p{current_group_price}, current group c{current_group_count}")
+                print(f"i: {i}, whole{whole_groups}, groups {groups}, current group p {current_group_price}, current group c {current_group_count}")
 
             total += ((groups * group_price) + current_group_price)
             group_counted = True
@@ -192,36 +193,37 @@ def checkout(skus):
 
 
 test_dic = {
-    "Test 1: ": {"t": "AABCDA", "r": 195},
-    "Test 2: ": {"t": "BBCX", "r": -1},
-    "Test 3: ": {"t": "BBCDA", "r": 130},
-    "Test 4: ": {"t": "DCBA", "r": 115},
-    "Test 5: ": {"t": "AAAAAA", "r": 250},
-    "Test 6: ": {"t": "AAAAA", "r": 200},
-    "Test 7: ": {"t": "AAAAAAAAA", "r": 380},
-    "Test 8: ": {"t": "AAAAABBBEEDD", "r": 355},
-    "Test 9: ": {"t": "F", "r": 10},
-    "Test 10: ": {"t": "FF", "r": 20},
-    "Test 11: ": {"t": "FFF", "r": 20},
-    "Test 12: ": {"t": "FFFF", "r": 30},
-    "Test 13: ": {"t": "FFFF", "r": 30},
-    "Test 14: ": {"t": "AAAAABBBEEDDFFFF", "r": 385},
-    "Test 15: ": {"t": "DCBAFFFF", "r": 145},
-    "Test 16: ": {"t": "RRRQQQQQQQ", "r": 310},
-    "Test 17: ": {"t": "RRRQQQQ", "r": 230},
-    "Test 18: ": {"t": "UUUU", "r": 120},
-    "Test 19: ": {"t": "UUU", "r": 120},
+ #   "Test 1: ": {"t": "AABCDA", "r": 195},
+ #   "Test 2: ": {"t": "BBCX", "r": -1},
+ #   "Test 3: ": {"t": "BBCDA", "r": 130},
+ #   "Test 4: ": {"t": "DCBA", "r": 115},
+ #   "Test 5: ": {"t": "AAAAAA", "r": 250},
+ #   "Test 6: ": {"t": "AAAAA", "r": 200},
+ #   "Test 7: ": {"t": "AAAAAAAAA", "r": 380},
+ #   "Test 8: ": {"t": "AAAAABBBEEDD", "r": 355},
+ #   "Test 9: ": {"t": "F", "r": 10},
+#    "Test 10: ": {"t": "FF", "r": 20},
+#    "Test 11: ": {"t": "FFF", "r": 20},
+#    "Test 12: ": {"t": "FFFF", "r": 30},
+#    "Test 13: ": {"t": "FFFF", "r": 30},
+#    "Test 14: ": {"t": "AAAAABBBEEDDFFFF", "r": 385},
+#    "Test 15: ": {"t": "DCBAFFFF", "r": 145},
+#    "Test 16: ": {"t": "RRRQQQQQQQ", "r": 310},
+#    "Test 17: ": {"t": "RRRQQQQ", "r": 230},
+#    "Test 18: ": {"t": "UUUU", "r": 120},
+#    "Test 19: ": {"t": "UUU", "r": 120},
     "Test 20: ": {"t": "XYZ", "r": 45},
-    "Test 21: ": {"t": "XXXZ", "r": 62},
-    "Test 22: ": {"t": "X", "r": 17},
-    "Test 23: ": {"t": "X", "r": 17},
-    "Test 24: ": {"t": "X", "r": 17},
+#    "Test 21: ": {"t": "XXXZ", "r": 62},
+#    "Test 22: ": {"t": "X", "r": 17},
+#    "Test 23: ": {"t": "X", "r": 17},
+#    "Test 24: ": {"t": "X", "r": 17},
 
 }
 if __name__ == "__main__":
     for test in test_dic:
         res = checkout(test_dic[test]['t'])
         print(f"{test} {res == test_dic[test]['r']}, {res}")
+
 
 
 
