@@ -3,9 +3,9 @@
 # noinspection PyUnusedLocal
 # skus = unicode string
 def checkout(skus):
-    items = ["A", "B", "C", "D"]
-    item_prices = {"A": 50 , "B":30, "C": 20, "D": 15}
-    special_prices = {"A": {"n": 3, "p": 130}, "B": {"n": 2, "p": 45}}
+    items = ["A", "B", "C", "D", "E"]
+    item_prices = {"A": 50 , "B":30, "C": 20, "D": 15, "E": 40}
+    special_prices = {"A": [{"type": "", "n": 3, "p": 130}, {"n": 5, "p": 200}], "B": {"n": 2, "p": 45}}
 
     letter_counts = {letter: 0 for letter in items}
 
@@ -47,5 +47,6 @@ test_dic = {
 if __name__ == "__main__":
     for test in test_dic:
         print(f"{test} {checkout(test_dic[test]['t']) == test_dic[test]['r']}")
+
 
 
