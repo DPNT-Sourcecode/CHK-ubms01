@@ -96,7 +96,10 @@ def checkout(skus):
 
                 else:
                     print("same group")
-                    current_group_count += (list_gc[i] + current_group_count) % group_size
+                    a = (list_gc[i] + current_group_count) % group_size
+                    b = list_gc[i] * list_gp[i]
+                    print(f"a {a}, b {b}/")
+                    current_group_count = (list_gc[i] + current_group_count)
                     current_group_price += list_gc[i] * list_gp[i]
 
                 print(f"i: {i}, whole{whole_groups}, groups {groups}, current group p {current_group_price}, current group c {current_group_count}")
@@ -223,6 +226,7 @@ if __name__ == "__main__":
     for test in test_dic:
         res = checkout(test_dic[test]['t'])
         print(f"{test} {res == test_dic[test]['r']}, {res}")
+
 
 
 
