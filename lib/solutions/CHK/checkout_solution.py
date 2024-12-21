@@ -77,17 +77,32 @@ def checkout(skus):
                     list_p[offer] = special_prices[char][offer]["p"]
                     list_ind[offer] = offer
 
-                indeces = np.argsort(list_n, )
+                indices = np.argsort(list_n)[::-1]
+                tot = 0
+                for i in indices:
+                    groups_n = letter_counts[char] // list_n[indices]
+                    rem = letter_counts[char] % list_n[indices]
 
-                offers = np.ones(n_offers) * 1000
+                    tot += groups_n * list_p[indices]
+
+                tot += rem * item_prices[char]
+                total += tot
+
+                #sorted_n = [list_n[i] for i in indices]
+                #sorted_p = [list_p[i] for i in indices]
+                #sorted_ind = [list_ind[i] for i in indices]
+
+                #for N_discount in
+
+                #offers = np.ones(n_offers) * 1000
 
 
-                for offer in range(n_offers):
+                #for offer in range(n_offers):
                     # assuming only discount offers for this
-                    offers[offer] = discount(letter_counts[char], special_prices[char][offer]["n"],
-                                             special_prices[char][offer]["p"], item_prices[char])
-                best_offer = np.min(offers)
-                total += best_offer
+                #    offers[offer] = discount(letter_counts[char], special_prices[char][offer]["n"],
+                #                             special_prices[char][offer]["p"], item_prices[char])
+                #best_offer = np.min(offers)
+                #total += best_offer
 
         else:
             total += (item_prices[char] * letter_counts[char])
@@ -102,11 +117,10 @@ test_dic = {
     "Test 4: ": {"t": "DCBA", "r": 115},
     "Test 5: ": {"t": "AAAAAA", "r": 250},
     "Test 6: ": {"t": "AAAAA", "r": 200},
-    "Test 7: ": {"t": "AAAAAAAAA", "r": 390},
+    "Test 7: ": {"t": "AAAAAAAAA", "r": 380},
     "Test 8: ": {"t": "AAAAABBBEEDD", "r": 355},
 
 }
 if __name__ == "__main__":
     for test in test_dic:
         print(f"{test} {checkout(test_dic[test]['t']) == test_dic[test]['r']}")
-
