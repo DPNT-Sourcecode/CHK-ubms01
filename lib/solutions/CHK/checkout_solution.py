@@ -38,7 +38,7 @@ def checkout(skus):
                       "P": [{"type": "d", "n": 5, "p": 200}],
                       "Q": [{"type": "d", "n": 3, "p": 80}],
                       "R": [{"type": "f", "n": 3, "i": "Q", "q": 1}],
-                      "U": [{"type": "f", "n": 3, "i": "U", "q": 1}],
+                      "U": [{"type": "f", "n": 4, "i": "U", "q": 1}],
                       "V": [{"type": "d", "n": 2, "p": 90}, {"type": "d", "n": 3, "p": 130}],
                       }
 
@@ -158,11 +158,14 @@ test_dic = {
     "Test 15: ": {"t": "DCBAFFFF", "r": 145},
     "Test 16: ": {"t": "RRRQQQQQQQ", "r": 310},
     "Test 17: ": {"t": "RRRQQQQ", "r": 230},
+    "Test 18: ": {"t": "UUUU", "r": 120},
+    "Test 19: ": {"t": "UUU", "r": 120},
 
 }
 if __name__ == "__main__":
     for test in test_dic:
         res = checkout(test_dic[test]['t'])
         print(f"{test} {res == test_dic[test]['r']}, {res}")
+
 
 
