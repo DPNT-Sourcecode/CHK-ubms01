@@ -68,7 +68,19 @@ def checkout(skus):
                     print(f"error: {special_prices[char]}")
             else:
                 n_offers = len(special_prices[char])
+                list_n = np.zeros(n_offers)
+                list_p = np.zeros(n_offers)
+                list_ind = np.zeros(n_offers)
+
+                for offer in range(n_offers):
+                    list_n[offer] = special_prices[char][offer]["n"]
+                    list_p[offer] = special_prices[char][offer]["p"]
+                    list_ind[offer] = offer
+
+                indeces = np.argsort(list_n, )
+
                 offers = np.ones(n_offers) * 1000
+
 
                 for offer in range(n_offers):
                     # assuming only discount offers for this
@@ -97,3 +109,4 @@ test_dic = {
 if __name__ == "__main__":
     for test in test_dic:
         print(f"{test} {checkout(test_dic[test]['t']) == test_dic[test]['r']}")
+
