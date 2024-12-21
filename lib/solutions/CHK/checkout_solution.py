@@ -6,11 +6,9 @@ import numpy as np
 
 def discount(counts, special_n, d_price, price):
     # checks amount of special prices they can get
-    print(counts, special_n, d_price, price)
     special_price = (counts // special_n) * d_price
     # gets left overs from special prices
     remaining = (counts % special_n) * price
-    print(special_price, remaining)
     return special_price + remaining
 
 
@@ -46,14 +44,11 @@ def checkout(skus):
                 if special_prices[char][0]["type"] == "d":
                     total += discount(letter_counts[char], special_prices[char][0]["n"],
                                       special_prices[char][0]["p"], item_prices[char])
-                    print(char, total)
 
                 elif special_prices[char][0]["type"] == "f":
                     # checks amount of special prices they can get
                     number_free = (letter_counts[char] // special_prices[char][0]["n"])
                     free_product = special_prices[char][0]["i"]
-
-                    print(f"number free: {number_free}, free_p: {free_product}")
 
                     if free_product in special_prices.keys():
                         previous_price = discount(letter_counts[free_product], special_prices[free_product][0]["n"],
@@ -67,9 +62,7 @@ def checkout(skus):
                         new_price = (letter_counts[free_product] - number_free) * item_prices[free_product]
 
                     price_char = letter_counts[char] * item_prices[char]
-                    print(f"prev:{previous_price}, new: {new_price}, e:{price_char}")
                     total += (new_price - previous_price + price_char)
-                    print(char, total)
 
                 else:
                     print(f"error: {special_prices[char]}")
@@ -83,11 +76,9 @@ def checkout(skus):
                                              special_prices[char][offer]["p"], item_prices[char])
                 best_offer = np.min(offers)
                 total += best_offer
-                print(char, total)
 
         else:
             total += (item_prices[char] * letter_counts[char])
-            print(char, total)
 
     return total
 
@@ -100,12 +91,13 @@ test_dic = {
     "Test 5: ": {"t": "AAAAAA", "r": 250},
     "Test 6: ": {"t": "AAAAA", "r": 200},
     "Test 7: ": {"t": "AAAAAAAAA", "r": 390},
-    "Test 8: ": {"t": "AAAAABBBEEDD", "r": 340},
+    "Test 8: ": {"t": "AAAAABBBEEDD", "r": 355},
 
 }
 if __name__ == "__main__":
     for test in test_dic:
         print(f"{test} {checkout(test_dic[test]['t']) == test_dic[test]['r']}")
+
 
 
 
