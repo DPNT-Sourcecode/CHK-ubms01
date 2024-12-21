@@ -83,11 +83,13 @@ def checkout(skus):
 
                 indices = np.argsort(list_n)[::-1]
                 print("ind: ", indices)
-                
+                print(letter_counts[char])
+
                 tot = 0
+                rem = letter_counts[char]
                 for i in indices:
                     print("lists: ",list_n[i], list_p[i])
-                    groups_n = letter_counts[char] // list_n[i]
+                    groups_n = rem // list_n[i]
                     rem = letter_counts[char] % list_n[i]
 
                     tot += groups_n * list_p[i]
@@ -135,6 +137,7 @@ if __name__ == "__main__":
     for test in test_dic:
         res = checkout(test_dic[test]['t'])
         print(f"{test} {res == test_dic[test]['r']}, {res}")
+
 
 
 
