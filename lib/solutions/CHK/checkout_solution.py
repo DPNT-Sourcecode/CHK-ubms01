@@ -90,20 +90,24 @@ def checkout(skus):
                     print("new group")
                     # new group created
                     groups += whole_groups
-
+                    a = (list_gc[i] + current_group_count) % group_size
+                    b = (list_gc[i] + current_group_count) % group_size * list_gp[i]
+                    print(f"a {a}, b {b}/")
                     current_group_count = (list_gc[i] + current_group_count) % group_size
-                    current_group_price = list_gc[i] * list_gp[i]
+                    current_group_price = current_group_count * list_gp[i]
+                    print(f"i: {i}, whole {whole_groups}, groups {groups}, current group p {current_group_price}, current group c {current_group_count}")
 
                 else:
-                    print("same group")
-                    a = (list_gc[i] + current_group_count) % group_size
-                    b = list_gc[i] * list_gp[i]
-                    print(f"a {a}, b {b}/")
+#                    print("same group")
+#                    a = (list_gc[i] + current_group_count) % group_size
+#                    b = list_gc[i] * list_gp[i]
+#                    print(f"a {a}, b {b}/")
                     current_group_count = (list_gc[i] + current_group_count)
                     current_group_price += list_gc[i] * list_gp[i]
 
-                print(f"i: {i}, whole{whole_groups}, groups {groups}, current group p {current_group_price}, current group c {current_group_count}")
+#                print(f"i: {i}, whole {whole_groups}, groups {groups}, current group p {current_group_price}, current group c {current_group_count}")
 
+            print(groups, group_price, current_group_price)
             total += ((groups * group_price) + current_group_price)
             group_counted = True
             groups = 0
@@ -226,3 +230,4 @@ if __name__ == "__main__":
     for test in test_dic:
         res = checkout(test_dic[test]['t'])
         print(f"{test} {res == test_dic[test]['r']}, {res}")
+
